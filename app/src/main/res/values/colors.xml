@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#d1d1d1</color>
+    <color name="colorPrimaryDark">#d1d1d1</color>
+    <color name="colorAccent">#d1d1d1</color>
+
+    <color name="transparent_white">#00000000</color>
+    <color name="transparent_black">#99000000</color>
+
+    <!--color-->
+    <color name="white">#ffffff</color>
+    <!--main_color-->
+    <color name="app_default_1">#01CD9A</color>
+    <color name="app_default_2">#97E6D2</color>
+    <color name="app_default_3">#C7F3E8</color>
+    <!--text_color-->
+    <color name="text_default">#6b6b6b</color>
+    <color name="text_default_2">#CECECE</color>
+    <!--<color name="colorAccent">#d1d1d1</color>-->
+</resources>
