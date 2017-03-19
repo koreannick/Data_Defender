@@ -1,7 +1,7 @@
 package com.data_defender.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.data_defender.data_defender.R;

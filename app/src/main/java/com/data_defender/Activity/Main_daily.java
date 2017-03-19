@@ -17,7 +17,6 @@ import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.data_defender.Util.WaveHelper;
 import com.data_defender.data_defender.R;
 import com.gelitenight.waveview.library.WaveView;
-
 /**
  * Created by young on 2017-03-17.
  */
@@ -101,24 +100,24 @@ public class Main_daily extends Fragment {
         @Override
         public void run() {
 
-            final TextView txt_datacheck = (TextView)view.findViewById(R.id.txt_datacheck);
-            while(true){
-                try {
-                    final long receiveByteByMobile = TrafficStats.getMobileRxBytes();
-                    final long transmitByteByMobile = TrafficStats.getMobileTxBytes();
-                    final long checked_data = receiveByteByMobile+transmitByteByMobile;
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txt_datacheck.setText(String.valueOf(checked_data));
-
-                        }
-                    });
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+//            final TextView txt_datacheck = (TextView)view.findViewById(R.id.txt_datacheck);
+//            while(true){
+//                try {
+//                    final long receiveByteByMobile = TrafficStats.getMobileRxBytes();
+//                    final long transmitByteByMobile = TrafficStats.getMobileTxBytes();
+//                    final long checked_data = receiveByteByMobile+transmitByteByMobile;
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            txt_datacheck.setText(String.valueOf(checked_data));
+//
+//                        }
+//                    });
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
     }
 
@@ -145,7 +144,6 @@ public class Main_daily extends Fragment {
     }
 
 }
-
 
 
 

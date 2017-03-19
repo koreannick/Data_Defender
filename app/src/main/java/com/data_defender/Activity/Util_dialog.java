@@ -119,10 +119,15 @@ public class Util_dialog extends Dialog {
             Intent intent;
             switch (mType) {
                 case"kill":
-//                    android.os.Process.killProcess(android.os.Process.myPid());
+                    android.os.Process.killProcess(android.os.Process.myPid());
                     break;
-
-
+                case"dismiss":
+                    Util_dialog.this.dismiss();
+                    break;
+                case"back":
+                    Activity activity = (Activity) mContext;
+                    activity.finish();
+                    break;
             }
         }
     };

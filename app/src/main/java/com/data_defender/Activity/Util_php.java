@@ -139,6 +139,26 @@ public class Util_php extends AsyncTask<String, Void, String> {
 
             }
 
+
+            if (params[params.length - 2].equals("setting_rendering")) {
+                writeFormField("token", params[0]);
+
+                dos.flush();
+                dos.close();
+
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String json;
+
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+
+                }
+                Log.e("setting_rendering", sb.toString().trim());
+                return sb.toString().trim();
+
+            }
+
             return "fail";
 
         } catch (Exception e) {

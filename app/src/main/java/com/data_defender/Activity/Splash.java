@@ -1,5 +1,6 @@
 package com.data_defender.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -72,7 +73,8 @@ public class Splash extends AppCompatActivity {
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(android.Manifest.permission.INTERNET,
                         android.Manifest.permission.ACCESS_NETWORK_STATE,
-                        android.Manifest.permission.WAKE_LOCK)
+                        android.Manifest.permission.WAKE_LOCK,
+                        android.Manifest.permission.READ_PHONE_STATE)
                 .check();
         /***************************************
          퍼미션 체크 구간여기까지

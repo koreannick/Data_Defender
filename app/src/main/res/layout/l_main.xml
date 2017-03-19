@@ -18,6 +18,8 @@
 
         <RelativeLayout
             android:id="@+id/daily_tab"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
@@ -34,6 +36,8 @@
 
         <RelativeLayout
             android:id="@+id/weekly_tab"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,8 +48,6 @@
                 android:id="@+id/weekly_tab_iv"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:background="@drawable/round_uncheck" />
 
         </RelativeLayout>
@@ -54,6 +56,8 @@
             android:id="@+id/montly_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_gravity="center"
             android:orientation="vertical">
 
@@ -73,17 +77,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tab_layout" />
-    <!--android:layout_above="@+id/ad_view"-->
-    <!--<com.google.android.gms.ads.AdView-->
-    <!--android:id="@+id/ad_view"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--ads:adSize="BANNER"-->
-    <!--ads:adUnitId="@string/banner_ad_unit_id_choice">-->
-    <!--</com.google.android.gms.ads.AdView>-->
+    android:layout_above="@+id/ad_view"
+    <com.google.android.gms.ads.AdView
+    android:id="@+id/ad_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    ads:adSize="BANNER"
+    ads:adUnitId="@string/banner_ad_unit_id_choice">
+    </com.google.android.gms.ads.AdView>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_setting"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/setting"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        />
 
 </RelativeLayout>
-
 
 

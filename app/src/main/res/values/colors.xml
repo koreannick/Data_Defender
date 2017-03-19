@@ -13,8 +13,10 @@
     <color name="app_default_1">#01CD9A</color>
     <color name="app_default_2">#97E6D2</color>
     <color name="app_default_3">#C7F3E8</color>
+
     <!--text_color-->
     <color name="text_default">#6b6b6b</color>
-    <color name="text_default_2">#CECECE</color>
+    <color name="text_default_2">#a1a1a1</color>
+    <color name="text_default_3">#CECECE</color>
     <!--<color name="colorAccent">#d1d1d1</color>-->
 </resources>

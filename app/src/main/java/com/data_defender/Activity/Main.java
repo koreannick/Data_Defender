@@ -3,8 +3,10 @@ package com.data_defender.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +17,9 @@ import com.data_defender.data_defender.R;
 //import com.google.android.gms.ads.AdRequest;
 //import com.google.android.gms.ads.AdView;
 //import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -29,8 +34,10 @@ public class Main extends AppCompatActivity {
     private ViewPager viewpager;
     ImageView[] iv = new ImageView[3];
     private String token_ch = null;
+    private String token = null;
+    private String setting =null;
     private Util_dialog dialog;
-
+    private ImageView btn_setting;
 
     private InputMethodManager imm;
 
@@ -46,26 +53,43 @@ public class Main extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onRestart() {
+        Log.e("스타트","");
+
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.e("리줌","");
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_main);
-
-        FirebaseInstanceId.getInstance().getToken();
+        Log.e("onCreate","");
+        token =   FirebaseInstanceId.getInstance().getToken();
         Log.e("토큰",""+FirebaseInstanceId.getInstance().getToken());
+
         /***********************************
          구글애드몹 추가
          **********************************/
         //mobileads initialize 모바일 앱ID 등록
-//        MobileAds.initialize(getApplicationContext(), "ca-app-pub-1158590181545654~2133940922");
-//        //애드몹 뷰
-//        AdView mAdView = (AdView) findViewById(R.id.ad_view);
-//        //광고 요청 testdevice 정식등록때 바꿔야됨.
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .build();
-//        mAdView.loadAd(adRequest);
+        MobileAds.initialize(getApplicationContext(),"ca-app-pub-1158590181545654~2133940922");
+        //애드몹 뷰
+        AdView mAdView = (AdView) findViewById(R.id.ad_view);
+        //광고 요청 testdevice 정식등록때 바꿔야됨.
+        //이게 정식출시때 해야할꺼
+//        AdRequest adRequest = new AdRequest.Builder().build();
+        //이게 테스트 기기 등록
+        TelephonyManager telephony = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String mu_phone_deviceid = telephony.getDeviceId();    //device id
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(mu_phone_deviceid).build();
+        mAdView.loadAd(adRequest);
         /***********************************
          구글애드몹 추가 여기까지
          **********************************/
@@ -79,33 +103,24 @@ public class Main extends AppCompatActivity {
 
         Findid();
         try {
-            token_ch = new Util_php(Main.this).execute(FirebaseInstanceId.getInstance().getToken(), "insert_token", "http://58.121.7.102/data_defender/php/fcm/register.php").get();
-Log.e("php 리턴",""+token_ch);
+            token_ch = new Util_php(Main.this).execute(token, "insert_token", "http://58.121.7.102/data_defender/php/fcm/register.php").get();
+            Log.e("php 리턴",""+token_ch);
             if (token_ch.contains("error")) {
                 dialog = new Util_dialog(Main.this, getResources().getDrawable(R.drawable.round), "알 수 없는 오류가 발생했습니다. \n 잠시후 다시 시작해주세요.", "확인", "kill");
-//                finish();
             } else if (token_ch.contains("alraedy")) {
-                Log.e("alraedy", "" + FirebaseMessagingService.bagde_count);
-
-//                Intent intent = new Intent(Main.this, Main.class);
-//                intent.putExtra("token_id", FirebaseInstanceId.getInstance().getToken());
-//                startActivity(intent);
-//                finish();
+                if(token_ch.contains("0")) {
+                    setting="not_yet";
+                }else if(token_ch.contains("1")) {
+                    setting="already";
+                }
             } else if (token_ch.contains("insert")) {
-                Log.e("alraedy", "" + FirebaseMessagingService.bagde_count);
-
-//                Intent intent = new Intent(Main.this, Main.class);
-//                intent.putExtra("token_id", FirebaseInstanceId.getInstance().getToken());
-//                startActivity(intent);
-//                finish();
+                setting="not_yet";
             } else {
                 dialog = new Util_dialog(Main.this, getResources().getDrawable(R.drawable.round), "알 수 없는 오류가 발생했습니다. \n 잠시후 다시 시작해주세요.", "확인", "kill");
-//                finish();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     void Findid() {
@@ -117,7 +132,18 @@ Log.e("php 리턴",""+token_ch);
         tab_3 = (RelativeLayout) findViewById(R.id.montly_tab);
         tab_3.setOnClickListener(btnListener);
         viewpager = (ViewPager) findViewById(R.id.view_pager);
-        final Setting.Main_Adapter viewpagerAdapter = new Setting.Main_Adapter(getSupportFragmentManager());
+        btn_setting = (ImageView)findViewById(R.id.btn_setting);
+        btn_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(Main.this,Setting.class);
+                intent.putExtra("setting",setting);
+                intent.putExtra("token",token);
+                Log.e("token",""+token);
+                startActivity(intent);
+            }
+        });
+        final Main_Adapter viewpagerAdapter = new Main_Adapter(getSupportFragmentManager());
 
         viewpager.setAdapter(viewpagerAdapter);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -128,7 +154,6 @@ Log.e("php 리턴",""+token_ch);
 
             @Override
             public void onPageSelected(int position) {
-                Log.e("슬라이드 position", "" + position);
                 if (position == 0) {
                     iv[0] = (ImageView) findViewById(R.id.daily_tab_iv);
                     iv[0].setBackgroundResource(R.drawable.round);
@@ -207,6 +232,7 @@ Log.e("php 리턴",""+token_ch);
                     iv[0].setBackgroundResource(R.drawable.round_uncheck);
                     setCurrentInflateItem(2);
                     break;
+
             }
         }
     };

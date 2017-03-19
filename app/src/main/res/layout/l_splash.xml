@@ -28,7 +28,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            app:font="custom4" />
+            android:textSize="25sp"
+            app:font="custom3" />
     </LinearLayout>
 </RelativeLayout>
